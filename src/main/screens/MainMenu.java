@@ -1,11 +1,15 @@
 package main.screens;
 
-import main.algorithms.BubbleSort;
+import main.algorithms.*;
 import main.algorithms.SortingAlgorithmInterface;
 import main.MainApp;
 
+import static main.MainApp.HEIGHT_SCREEN;
+import static main.MainApp.WIDTH_SCREEN;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.metal.MetalCheckBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -29,61 +33,70 @@ public class MainMenu extends Screen {
 
     private void addCheckBox(SortingAlgorithmInterface sai, JPanel panel){
         JCheckBox box = new JCheckBox("",true);
-        box.setAlignmentX(Component.LEFT_ALIGNMENT);
-        box.setBackground(BACKGROUND);
+        box.setAlignmentX(Component.CENTER_ALIGNMENT);
+        box.setOpaque(false);
+        box.setForeground(Color.WHITE);
+
         checkBoxAlgorithms.add(new CheckBoxAlgorithm(sai,box));
         panel.add(box);
     }
 
+
     private void initContainer(JPanel panel){
-        panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+        panel.setLayout(new BoxLayout(panel,BoxLayout.LINE_AXIS));
         panel.setBackground(BACKGROUND);
     }
 
     public void setUp(){
         JPanel sortAlgContainer = new JPanel();
         JPanel optionsContainer = new JPanel();
-        JPanel backgroContainer = new JPanel();
 
         initContainer(this);
         initContainer(optionsContainer);
         initContainer(sortAlgContainer);
 
-        backgroContainer.setBackground(BACKGROUND);
-        backgroContainer.setLayout(new BoxLayout(backgroContainer,BoxLayout.LINE_AXIS));
+        JPanel backgroContainer = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    BufferedImage bimg = ImageIO.read(new File("assets/cosa.png"));
+                    g.drawImage(bimg, 0, 0, this.getWidth(), this.getHeight(), null);
+                } catch (IOException e) {
+                    System.out.println("Error loading background image");
+                    e.printStackTrace();
+                }
+            }
+        };
 
-        try{
-            BufferedImage bimg = ImageIO.read(new File("resources/cosa.jpg"));
-            JLabel label = new JLabel(new ImageIcon(bimg));
-            label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            add(label);
-        }catch (IOException e){
 
-        }
-
-        sortAlgContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        sortAlgContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
         addCheckBox(new BubbleSort(),       sortAlgContainer);
-//        addCheckBox(new SelectionSort(),    sortAlgContainer);
-//        addCheckBox(new CycleSort(),        sortAlgContainer);
-//        addCheckBox(new StoogeSort(),       sortAlgContainer);
-//        addCheckBox(new QuickSort(),        sortAlgContainer);
-//        addCheckBox(new PancakeSort(),      sortAlgContainer);
-//        addCheckBox(new MergeSort(),        sortAlgContainer);
-//        addCheckBox(new InsertionSort(),    sortAlgContainer);
-//        addCheckBox(new HeapSort(),         sortAlgContainer);
-//        addCheckBox(new GnomeSort(),        sortAlgContainer);
-//        addCheckBox(new CountingSort(),     sortAlgContainer);
-//        addCheckBox(new RadixSort(),        sortAlgContainer);
-//        addCheckBox(new IterativeMergeSort(), sortAlgContainer);
+        addCheckBox(new SelectionSort(),    sortAlgContainer);
+        addCheckBox(new CycleSort(),        sortAlgContainer);
+        addCheckBox(new StoogeSort(),       sortAlgContainer);
+        addCheckBox(new QuickSort(),        sortAlgContainer);
+        addCheckBox(new PancakeSort(),      sortAlgContainer);
+        addCheckBox(new MergeSort(),        sortAlgContainer);
+        addCheckBox(new InsertionSort(),    sortAlgContainer);
+        addCheckBox(new HeapSort(),         sortAlgContainer);
+        addCheckBox(new GnomeSort(),        sortAlgContainer);
+        addCheckBox(new CountingSort(),     sortAlgContainer);
+        addCheckBox(new RadixSort(),        sortAlgContainer);
+        addCheckBox(new IterativeMergeSort(), sortAlgContainer);
 
         JCheckBox soundCheckBox = new JCheckBox("Play Sounds");
         soundCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-        soundCheckBox.setBackground(BACKGROUND);
-        soundCheckBox.setForeground(Color.WHITE);
+
+
+        soundCheckBox.setForeground(Color.BLACK);
 
         optionsContainer.add(soundCheckBox);
 
         JButton startButton = new JButton("Begin Visual Sorter");
+        startButton.setForeground(Color.WHITE);
+        startButton.setBackground(Color.BLACK);
+
         startButton.addActionListener((ActionEvent e) -> {
             ArrayList<SortingAlgorithmInterface> algorithms = new ArrayList<>();
             for (CheckBoxAlgorithm cb : checkBoxAlgorithms) {
@@ -98,7 +111,7 @@ public class MainMenu extends Screen {
                             app
                     ));
         });
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         backgroContainer.add(optionsContainer);
         backgroContainer.add(Box.createRigidArea(new Dimension(5,0)));
@@ -108,7 +121,7 @@ public class MainMenu extends Screen {
         add(Box.createRigidArea(new Dimension(0, gap)));
         add(backgroContainer);
         add(Box.createRigidArea(new Dimension(0, gap)));
-        add(startButton);
+        add(startButton, BorderLayout.NORTH);
 
 
     }

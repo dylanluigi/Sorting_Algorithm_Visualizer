@@ -21,20 +21,12 @@ import javax.swing.SpinnerNumberModel;
 
 import main.algorithms.SortingAlgorithmInterface;
 
-/**
- * The array that can be sorted
- *
- * @author mhops
- */
+
 public class SortArray extends JPanel {
     public static final int DEFAULT_WIN_WIDTH = 1280;
     public static final int DEFAULT_WIN_HEIGHT = 720;
     private static final int DEFAULT_BAR_WIDTH = 5;
-    /**
-     * This is the percent of the panel the bars will consume.
-     * Based on the original 256 bars each being 2x their height
-     * and 720px window height, or 512/720
-     */
+
     private static final double BAR_HEIGHT_PERCENT = 512.0/720.0;
     private static final int NUM_BARS = DEFAULT_WIN_WIDTH / DEFAULT_BAR_WIDTH;
 

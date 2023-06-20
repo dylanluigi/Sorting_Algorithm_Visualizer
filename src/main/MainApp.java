@@ -4,14 +4,15 @@ import main.screens.MainMenu;
 import main.screens.Screen;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MainApp extends JFrame {
 
 
-    public static final int WIDTH_SCREEN = 1280;
+    public static final int WIDTH_SCREEN = 1950;
 
-    public static final int HEIGHT_SCREEN = 720;
+    public static final int HEIGHT_SCREEN = 900;
 
     private final ArrayList<Screen> screens;
 
@@ -20,6 +21,7 @@ public class MainApp extends JFrame {
 
         screens = new ArrayList<>();
         setTitle("Sort Array Visualizer");
+        setBackground(Color.BLACK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -66,6 +68,11 @@ public class MainApp extends JFrame {
 
     public static void main(String... args) {
         System.setProperty("sun.java2d.opengl", "true");
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         SwingUtilities.invokeLater(() -> {
             new MainApp().start();
         });
