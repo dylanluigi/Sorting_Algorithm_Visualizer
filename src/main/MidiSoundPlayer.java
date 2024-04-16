@@ -27,11 +27,8 @@ public class MidiSoundPlayer {
         inputValueMaximum = maxValue;
 
 
-        //Set up midi channel
         channel = synth.getChannels()[0];
 
-        //Electric grand piano sounds the best, so it tries to find that.
-        //Sometimes it is not supported, so it defaults to 143
         Instrument[] instruments = synth.getDefaultSoundbank().getInstruments();
         if (CACHED_INDEX == - 1) {
             boolean found = false;
@@ -51,10 +48,7 @@ public class MidiSoundPlayer {
 
         channel.programChange(instruments[CACHED_INDEX].getPatch().getProgram());
 
-        //Set up keys
         keys = new ArrayList<>();
-        //24 is the start of the somewhat audible major keys
-        //108 is the last decent
         for (int i = 24; i < 108; i += 12) {
             keys.add(i);
             keys.add(i + 2);
