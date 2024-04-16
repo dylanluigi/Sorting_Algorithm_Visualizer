@@ -41,7 +41,7 @@ public class SortArray extends JPanel {
     private JSpinner spinner;
     private boolean playSounds;
 
-    private int arrayChanges = 0; // Number of changes to the array the current algorithm has taken so far
+    private int arrayChanges = 0; 
 
     public SortArray(boolean playSounds) {
         setBackground(Color.DARK_GRAY);
@@ -69,10 +69,7 @@ public class SortArray extends JPanel {
         return array[index];
     }
 
-    /**
-     * Gets the max value of the array or Integer.MIN_VALUE if there isn't one.
-     * @return the max value or Integer.MIN_VALUE.
-     */
+    
     public int getMaxValue() {
         return Arrays.stream(array).max().orElse(Integer.MIN_VALUE);
     }
@@ -127,11 +124,7 @@ public class SortArray extends JPanel {
         }
     }
 
-    /**
-     * Gets the canvas size
-     *
-     * @return size
-     */
+    
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(DEFAULT_WIN_WIDTH, DEFAULT_WIN_HEIGHT);
@@ -144,11 +137,6 @@ public class SortArray extends JPanel {
         repaint();
     }
 
-    /**
-     * Draws the array
-     *
-     * @param g The graphics device for drawing
-     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
